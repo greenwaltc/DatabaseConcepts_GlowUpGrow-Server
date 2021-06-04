@@ -40,8 +40,11 @@ app.use(cookieSession({
 }));
 
 
-// import the users module and setup its API path
+// import the module and setup API paths
 const users = require("./users.js");
 app.use("/api/users", users.routes);
+
+const terrariums = require("./terrarium.js");
+app.use("/api/terrarium", terrariums.routes);
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));
