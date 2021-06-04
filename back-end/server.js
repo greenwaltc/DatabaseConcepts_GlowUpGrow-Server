@@ -20,6 +20,9 @@ const uri = "mongodb+srv://greenwaltc:" + password + "@cluster0.gxvag.mongodb.ne
 mongoose.connect(uri, {
     useUnifiedTopology: true,
     useNewUrlParser: true
+}).catch(error => {
+    console.log("Unable to connect to database");
+    console.log(error);
 });
 
 const cookieParser = require("cookie-parser");
