@@ -12,3 +12,18 @@ Login-remote:
 
 Terrarium-New-Local:
     curl -v -X POST -H "Content-Type: application/json" -d @./testing/terrarium/new.json http://localhost:3000/api/terrarium/new
+
+Terrarium-New-remote:
+    curl -v -X POST -H "Content-Type: application/json" -d @./testing/terrarium/new.json http://143.110.155.187/api/terrarium/new
+
+Terrarium-Plant-Local:
+    curl -v -X PUT -H "Content-Type: application/json" -d @./testing/terrarium/plant.json http://localhost:3000/api/terrarium/plant
+
+Terrarium-Plant-Remote:
+    curl -v -X PUT -H "Content-Type: application/json" -d @./testing/terrarium/plant.json http://143.110.155.187/api/terrarium/plant
+
+Terrarium-All-Local:
+    curl -v -X GET -H "Content-Type: application/json" -d @./testing/terrarium/all.json http://localhost:3000/api/terrarium/
+
+Terrarium-Single-Local:
+    curl -v -X GET -H "Content-Type: application/json" -d @./testing/terrarium/single.json http://localhost:3000/api/terrarium/single
