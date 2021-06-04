@@ -9,3 +9,6 @@ Login-local:
 
 Login-remote:
     curl -v -X POST -H "Content-Type: application/json" -d @./testing/login.json "http://143.110.155.187/api/users/login"
+
+Terrarium-New-Local:
+    curl -v -X POST -H "Content-Type: application/json" -d @./testing/terrarium/new.json http://localhost:3000/api/terrarium/new

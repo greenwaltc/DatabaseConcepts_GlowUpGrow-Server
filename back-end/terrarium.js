@@ -19,7 +19,7 @@ const terrariumModelSchema = new mongoose.Schema({
 });
 
 // create a User model from the User schema
-const Terrarium = mongoose.model('TerrariumModel', terrariumModelSchema);
+const TerrariumModel = mongoose.model('TerrariumModel', terrariumModelSchema);
 
 // schema for a plant 
 const plantSchema = new mongoose.Schema({
@@ -62,7 +62,72 @@ const LiveTerrarium = mongoose.model('LiveTerrarium', liveTerrariumSchema);
 /* API Endpoints */
 
 /* All of these endpoints start with "/" here, but will be configured by the
-   module that imports this one to use a complete path, such as "/api/user" */
+   module that imports this one to use a complete path, such as "/api/terrarium" */
+
+router.post("/new", async (req, res) => {
+
+    // Check request parameters
+    if(!req.body.UserID || !req.body.ModelID) {
+        return res.status(400).send({
+            message: "Please provide the required fields."
+        });
+    }
+
+    let user = User.findOne({
+        _id: req.body.UserID
+    });
+    let model = TerrariumModel.findOne({
+        ModelID: req.body.ModelID
+    });
+    let plant = new Plant({
+        _id: 1, // might give us issues
+        Name: "Empty",
+        Temperature: 0.0,
+        SoilMoisture: 0.0,
+        Humidity: 0.0,
+        LightLevel: 0.0,
+        GrowthTimeDays: 0,
+        SpaceRequirement: 0.0
+    });
+
+    // Check to make sure that objects were found
+    if (!user) {
+        return res.sendStatus(400).send({
+            Message: "Error: user not found",
+            Success: false
+        });
+    }
+    if (!model) {
+        return res.sendStatus(400).send({
+            Message: "Error: terrarium model not found",
+            Success: false
+        });
+    }
+
+    // make the live terrarium object
+    let liveTerrarium = new LiveTerrarium({
+        User: user,
+        Model: model,
+        Plant: plant,
+        Temperature: 0.0,
+        SoilMoisture: 0.0,
+        Humidity: 0.0,
+        LightLevel: 0.0,
+        DaysGrown: 0
+    });
+
+    try {
+        await liveTerrarium.save();
+        return res.sendStatus(200).send({
+            Success: true
+        });
+    } catch (error) {
+        return res.sendStatus(500).send({
+            Message: "Error: Internal server error",
+            Success: false
+        })
+    }
+});
 
 
 module.exports = {
