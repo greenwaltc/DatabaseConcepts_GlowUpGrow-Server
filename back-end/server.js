@@ -12,7 +12,12 @@ app.use(bodyParser.urlencoded({
 }));
 
 // connect to the mongodb database
-mongoose.connect('mongodb://localhost:27017/glowupgrow', {
+const password = "GlowUpGrow-2021";
+const database = "GlowUpGrow";
+const uri = "mongodb+srv://greenwaltc:" + password + "@cluster0.gxvag.mongodb.net/" + database + "?retryWrites=true&w=majority";
+// uri for connecting to remote mongodb hosted on AWS and accessed through mongodb.com
+
+mongoose.connect(uri, {
     useUnifiedTopology: true,
     useNewUrlParser: true
 });

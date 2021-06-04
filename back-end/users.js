@@ -117,9 +117,12 @@ router.post('/register', async (req, res) => {
 
         //  Check to see if username already exists and if not send a 403 error. A 403
         // error means permission denied.
+        console.log("finding existing user");
         const existingUser = await User.findOne({
             Username: req.body.Username
         });
+        console.log("Existing user:");
+        console.log(existingUser);
         if (existingUser)
             return res.status(403).send({
                 Message: "Error: username already exists",
@@ -132,6 +135,7 @@ router.post('/register', async (req, res) => {
             Password: req.body.Password,
             EmailAddress: req.body.EmailAddress
         });
+        console.log("Before saving user");
         await user.save();
         // set user session info
         req.session.userID = user._id;
@@ -142,6 +146,7 @@ router.post('/register', async (req, res) => {
             Username: user.Username,
             Success: true
         }
+        console.log("Before send");
         return res.send(response);
     } catch (error) {
         console.log(error);

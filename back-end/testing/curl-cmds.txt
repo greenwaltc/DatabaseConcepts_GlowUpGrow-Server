@@ -1,5 +1,8 @@
-Register:
-    curl -X POST -H "Content-Type: application/json" -d @./testing/register.json http://localhost:3000/api/users/register
+Register-local:
+    curl -v -X POST -H "Content-Type: application/json" -d @./testing/register.json http://localhost:3000/api/users/register
+
+Register-remote:
+    curl -v -X POST -H "Content-Type: application/json" -d @./testing/register.json "http://143.110.155.187/api/users/register"
 
 Login:
     curl -X POST -H "Content-Type: application/json" -d @./testing/login.json http://localhost:3000/api/users/login
